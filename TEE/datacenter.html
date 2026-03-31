@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Private Utility Data Center | True Empire Engineering</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-black: #050505;
+            --secondary-black: #0a0a0a;
+            --tertiary-black: #111111;
+            --empire-red: #ff0033;
+            --empire-gold: #ffd700;
+            --holo-cyan: #00f3ff;
+            --holo-magenta: #ff00ff;
+            --holo-purple: #b026ff;
+            --text-white: #ffffff;
+            --text-gray: #a0a0a0;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 4rem;
+            --space-xl: 8rem;
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--primary-black);
+            color: var(--text-white);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .holo-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.4;
+            background: 
+                radial-gradient(circle at 50% 50%, rgba(255, 0, 51, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 20% 80%, rgba(0, 243, 255, 0.1) 0%, transparent 50%);
+            animation: holoShift 20s ease-in-out infinite;
+        }
+
+        @keyframes holoShift {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(20px, 20px) scale(1.1); }
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: var(--space-sm) 5%;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+        }
+
+        .logo-icon svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+        }
+
+        .logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-white);
+            line-height: 1;
+        }
+
+        .logo-text span {
+            color: var(--empire-gold);
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--space-md);
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--empire-gold), var(--holo-cyan));
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-white);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--empire-gold);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: calc(var(--space-xl) + 80px) 5% var(--space-xl);
+            background: linear-gradient(135deg, rgba(255, 0, 51, 0.05), rgba(0, 243, 255, 0.05));
+            border-bottom: 1px solid var(--glass-border);
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: var(--space-xs) var(--space-md);
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 100px;
+            color: var(--empire-gold);
+            font-size: 0.85rem;
+            margin-bottom: var(--space-md);
+            font-weight: 600;
+        }
+
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+            background: linear-gradient(135deg, var(--text-white), var(--empire-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .section {
+            padding: var(--space-xl) 5%;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto var(--space-lg);
+        }
+
+        .section-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--empire-gold);
+            margin-bottom: var(--space-sm);
+            display: block;
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+        }
+
+        /* Private Utility Highlight */
+        .utility-highlight {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 0, 51, 0.1));
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin: var(--space-lg) 0;
+            text-align: center;
+        }
+
+        .utility-highlight h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.75rem;
+            color: var(--empire-gold);
+            margin-bottom: var(--space-sm);
+        }
+
+        .utility-highlight p {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-md);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(0, 243, 255, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 215, 0, 0.3);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--empire-gold), var(--holo-cyan));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-md);
+            font-size: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 243, 255, 0.2);
+        }
+
+        .service-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: var(--space-sm);
+            color: var(--text-white);
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-card p {
+            color: var(--text-gray);
+            line-height: 1.7;
+            margin-bottom: var(--space-md);
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-features {
+            list-style: none;
+            margin-bottom: var(--space-md);
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-features li {
+            padding: var(--space-xs) 0;
+            padding-left: var(--space-md);
+            position: relative;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        .service-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--empire-gold);
+            font-weight: bold;
+        }
+
+        /* Infrastructure Specs */
+        .specs-section {
+            background: var(--secondary-black);
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-md);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .spec-item {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            text-align: center;
+        }
+
+        .spec-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--empire-gold);
+            display: block;
+            margin-bottom: var(--space-xs);
+        }
+
+        .spec-label {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* CTA */
+        .cta-section {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 0, 51, 0.1));
+        }
+
+        .btn {
+            padding: var(--space-sm) var(--space-lg);
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            border-radius: var(--radius-sm);
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--empire-gold), #ffaa00);
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-white);
+            border: 1px solid var(--glass-border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--glass-bg);
+            border-color: var(--empire-gold);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-black);
+            border-top: 1px solid var(--glass-border);
+            padding: var(--space-xl) 5% var(--space-lg);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: var(--space-xl);
+            margin-bottom: var(--space-xl);
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: var(--space-md);
+        }
+
+        .footer-brand p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .footer-links h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--text-white);
+            margin-bottom: var(--space-md);
+            font-size: 1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: var(--space-xs);
+        }
+
+        .footer-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--empire-gold);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: var(--space-lg);
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+
+        .footer-bottom p {
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            border-color: var(--empire-gold);
+            color: var(--empire-gold);
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 968px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="holo-bg"></div>
+
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#ffd700;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#ff0033;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M24 4L4 14v20l20 10 20-10V14L24 4z" stroke="url(#logoGradient)" stroke-width="2" fill="none"/>
+                        <path d="M24 4v20M24 24v20" stroke="url(#logoGradient)" stroke-width="2"/>
+                        <text x="12" y="28" fill="url(#logoGradient)" font-family="Space Grotesk" font-weight="700" font-size="14">TE</text>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    True Empire
+                    <span>Engineering</span>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="industries.html">Industries</a></li>
+                <li><a href="datacenter.html" class="active">Data Center</a></li>
+                <li><a href="underground.html">Underground</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">Private Utility Provider</div>
+            <h1>Your Own Communications Utility</h1>
+            <p>Independent data infrastructure that operates as your private utility. Own your communications network with air-gapped security, private 5G, and zero dependency on public grid infrastructure.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="utility-highlight fade-in">
+            <h3>⚡ Private Utility Infrastructure</h3>
+            <p>True Empire Engineering operates as your private utility provider for communications and data. We build, maintain, and operate independent infrastructure that keeps your organization connected regardless of external grid conditions. No more relying on public ISPs or cloud providers for critical communications.</p>
+        </div>
+
+        <div class="section-header fade-in" style="margin-top: var(--space-xl);">
+            <span class="section-label">Infrastructure</span>
+            <h2 class="section-title">Utility-Grade Communications</h2>
+            <p style="color: var(--text-gray);">Enterprise-class data infrastructure with the reliability and independence of a private utility.</p>
+        </div>
+
+        <div class="services-grid">
+            <div class="service-card fade-in">
+                <div class="service-icon">📡</div>
+                <h3>Private 5G Networks</h3>
+                <p>Your own cellular infrastructure operating on licensed and unlicensed spectrum. Complete independence from commercial carriers with coverage tailored to your facilities.</p>
+                <ul class="service-features">
+                    <li>10km+ coverage radius</li>
+                    <li>Sub-10ms latency</li>
+                    <li>1,000+ concurrent devices</li>
+                    <li>Independent of public carriers</li>
+                </ul>
+            </div>
+
+            <div class="service-card fade-in">
+                <div class="service-icon">🔌</div>
+                <h3>Dark Fiber Infrastructure</h3>
+                <p>Private fiber optic networks that never touch the public internet. Direct point-to-point connectivity with physical isolation from external threats.</p>
+                <ul class="service-features">
+                    <li>Physical network isolation</li>
+                    <li>99.99% uptime SLA</li>
+                    <li>10Gbps+ capacity</li>
+                    <li>Oncor backbone integration</li>
+                </ul>
+            </div>
+
+            <div class="service-card fade-in">
+                <div class="service-icon">🏢</div>
+                <h3>Secure Colocation</h3>
+                <p>Air-gapped data center space with biometric access, 24/7 monitoring, and independent power generation. Your hardware, your rules, complete physical security.</p>
+                <ul class="service-features">
+                    <li>Biometric access control</li>
+                    <li>Independent power generation</li>
+                    <li>24/7 physical security</li>
+                    <li>Climate-controlled environment</li>
+                </ul>
+            </div>
+
+            <div class="service-card fade-in">
+                <div class="service-icon">☁️</div>
+                <h3>Private Cloud Hosting</h3>
+                <p>Cloud computing resources on your own infrastructure. All the flexibility of cloud with none of the third-party dependencies or data exposure risks.</p>
+                <ul class="service-features">
+                    <li>VM isolation architecture</li>
+                    <li>Automated backup systems</li>
+                    <li>Custom security policies</li>
+                    <li>Zero external data exposure</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="section specs-section">
+        <div class="section-header fade-in">
+            <span class="section-label">Specifications</span>
+            <h2 class="section-title">Utility-Grade Infrastructure</h2>
+            <p style="color: var(--text-gray);">Built to the standards of municipal utilities with the security of military installations.</p>
+        </div>
+
+        <div class="specs-grid">
+            <div class="spec-item fade-in">
+                <span class="spec-value">99.99%</span>
+                <span class="spec-label">Uptime SLA</span>
+            </div>
+            <div class="spec-item fade-in">
+                <span class="spec-value">&lt;1ms</span>
+                <span class="spec-label">Internal Latency</span>
+            </div>
+            <div class="spec-item fade-in">
+                <span class="spec-value">72hr</span>
+                <span class="spec-label">Battery Backup</span>
+            </div>
+            <div class="spec-item fade-in">
+                <span class="spec-value">256-bit</span>
+                <span class="spec-label">Encryption</span>
+            </div>
+            <div class="spec-item fade-in">
+                <span class="spec-value">24/7</span>
+                <span class="spec-label">Operations Center</span>
+            </div>
+            <div class="spec-item fade-in">
+                <span class="spec-value">0</span>
+                <span class="spec-label">External Dependencies</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="section cta-section">
+        <div class="section-header fade-in">
+            <span class="section-label">Get Started</span>
+            <h2 class="section-title">Become Your Own Utility</h2>
+            <p class="section-subtitle">Stop renting communications infrastructure. Own it.</p>
+            <div style="margin-top: var(--space-md); display: flex; gap: var(--space-sm); justify-content: center; flex-wrap: wrap;">
+                <a href="contact.html" class="btn btn-primary">Schedule Consultation</a>
+                <a href="tel:+15551234567" class="btn btn-secondary">Call (555) 123-4567</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">
+                        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="logoGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#ffd700;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#ff0033;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <path d="M24 4L4 14v20l20 10 20-10V14L24 4z" stroke="url(#logoGradient2)" stroke-width="2" fill="none"/>
+                            <path d="M24 4v20M24 24v20" stroke="url(#logoGradient2)" stroke-width="2"/>
+                            <text x="12" y="28" fill="url(#logoGradient2)" font-family="Space Grotesk" font-weight="700" font-size="14">TE</text>
+                        </svg>
+                    </div>
+                    <div class="logo-text">
+                        True Empire
+                        <span>Engineering</span>
+                    </div>
+                </a>
+                <p>Private utility provider for communications and data infrastructure. Dallas-based, globally capable.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="#">Private 5G</a></li>
+                    <li><a href="#">Dark Fiber</a></li>
+                    <li><a href="#">Colocation</a></li>
+                    <li><a href="#">Cloud Hosting</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Contact</h4>
+                <ul>
+                    <li>Dallas, TX</li>
+                    <li>info@trueempire.com</li>
+                    <li>(555) 123-4567</li>
+                    <li>24/7 NOC</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 True Empire Engineering. All Rights Reserved.</p>
+            <div class="social-links">
+                <a href="#">in</a>
+                <a href="#">X</a>
+                <a href="#">@</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

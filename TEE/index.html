@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>True Empire Engineering | Independent Infrastructure Solutions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-black: #050505;
+            --secondary-black: #0a0a0a;
+            --tertiary-black: #111111;
+            --empire-red: #ff0033;
+            --empire-gold: #ffd700;
+            --holo-cyan: #00f3ff;
+            --holo-magenta: #ff00ff;
+            --holo-purple: #b026ff;
+            --text-white: #ffffff;
+            --text-gray: #a0a0a0;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-highlight: rgba(255, 255, 255, 0.08);
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 4rem;
+            --space-xl: 8rem;
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--primary-black);
+            color: var(--text-white);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .holo-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.4;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 243, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 0, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
+            animation: holoShift 20s ease-in-out infinite;
+        }
+
+        @keyframes holoShift {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: var(--space-sm) 5%;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            position: relative;
+        }
+
+        .logo-icon svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+        }
+
+        .logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-white);
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+
+        .logo-text span {
+            color: var(--empire-gold);
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--space-md);
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: var(--space-xs) 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--empire-gold), var(--holo-cyan));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-white);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--empire-gold);
+        }
+
+        .ai-nav-btn {
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.1), rgba(255, 0, 255, 0.1));
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 100px;
+            color: var(--holo-cyan);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            transition: all 0.3s;
+        }
+
+        .ai-nav-btn:hover {
+            background: rgba(0, 243, 255, 0.2);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .ai-nav-btn::before {
+            content: '✦';
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: var(--space-xl) 5%;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1534430480872-3498386e7856?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.4) saturate(1.2);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                135deg,
+                rgba(5, 5, 5, 0.9) 0%,
+                rgba(5, 5, 5, 0.6) 50%,
+                rgba(5, 5, 5, 0.8) 100%
+            );
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1000px;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: var(--space-xs) var(--space-sm);
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            font-size: 0.85rem;
+            color: var(--holo-cyan);
+            margin-bottom: var(--space-md);
+            backdrop-filter: blur(10px);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--holo-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--holo-cyan);
+            animation: pulse 2s infinite;
+        }
+
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: var(--space-md);
+            background: linear-gradient(135deg, var(--text-white) 0%, var(--empire-gold) 50%, var(--holo-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.3));
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            color: var(--text-gray);
+            max-width: 700px;
+            margin: 0 auto var(--space-lg);
+            font-weight: 300;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: var(--space-sm);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: var(--space-sm) var(--space-lg);
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            border-radius: var(--radius-sm);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--empire-red), #ff3366);
+            color: var(--text-white);
+            box-shadow: 0 4px 20px rgba(255, 0, 51, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(255, 0, 51, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-white);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: var(--glass-bg);
+            border-color: var(--empire-gold);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+        }
+
+        /* Section Styling */
+        .section {
+            padding: var(--space-xl) 5%;
+            position: relative;
+        }
+
+        .section-header {
+            max-width: 800px;
+            margin: 0 auto var(--space-lg);
+            text-align: center;
+        }
+
+        .section-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--empire-gold);
+            margin-bottom: var(--space-sm);
+            display: block;
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+            line-height: 1.1;
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-gray);
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        /* Quick Links Grid */
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-md);
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .quick-link-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s;
+        }
+
+        .quick-link-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--empire-gold);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .quick-link-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        .quick-link-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            margin-bottom: var(--space-xs);
+            color: var(--text-white);
+        }
+
+        .quick-link-card p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* Case Study Section - Enhanced */
+        .case-study-section {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.05), rgba(255, 0, 51, 0.05));
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .case-study-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .case-study-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: var(--space-xl);
+            max-width: 1400px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .case-study-logo {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .case-study-logo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(0, 243, 255, 0.1));
+            opacity: 0.5;
+        }
+
+        .classic-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: var(--space-xs);
+            position: relative;
+            z-index: 1;
+        }
+
+        .classic-logo span {
+            color: var(--empire-gold);
+        }
+
+        .classic-subtitle {
+            color: var(--text-gray);
+            font-size: 1rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1;
+        }
+
+        .case-study-content h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: var(--space-md);
+            line-height: 1.2;
+        }
+
+        .case-study-content h2 span {
+            color: var(--empire-gold);
+        }
+
+        .savings-highlight {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.05));
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: var(--radius-md);
+            padding: var(--space-sm) var(--space-md);
+            margin: var(--space-md) 0;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--empire-gold);
+        }
+
+        .case-study-features {
+            list-style: none;
+            margin: var(--space-md) 0;
+        }
+
+        .case-study-features li {
+            padding: var(--space-sm) 0;
+            padding-left: var(--space-lg);
+            position: relative;
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .case-study-features li:last-child {
+            border-bottom: none;
+        }
+
+        .case-study-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--empire-gold);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .case-study-features strong {
+            color: var(--text-white);
+        }
+
+        .no-cloud-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            background: rgba(0, 243, 255, 0.1);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            color: var(--holo-cyan);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: var(--space-md);
+        }
+
+        .grid-independence-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            background: rgba(255, 0, 51, 0.1);
+            border: 1px solid rgba(255, 0, 51, 0.3);
+            color: var(--empire-red);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: var(--space-sm);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-black);
+            border-top: 1px solid var(--glass-border);
+            padding: var(--space-xl) 5% var(--space-lg);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: var(--space-xl);
+            margin-bottom: var(--space-xl);
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: var(--space-md);
+        }
+
+        .footer-brand p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .footer-links h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--text-white);
+            margin-bottom: var(--space-md);
+            font-size: 1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: var(--space-xs);
+        }
+
+        .footer-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--empire-gold);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: var(--space-lg);
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+
+        .footer-bottom p {
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            border-color: var(--empire-gold);
+            color: var(--empire-gold);
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 968px) {
+            .case-study-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .case-study-features li {
+                text-align: left;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .savings-highlight {
+                font-size: 1.25rem;
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--primary-black);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--empire-gold);
+        }
+    </style>
+</head>
+<body>
+    <div class="holo-bg"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#ffd700;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#ff0033;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M24 4L4 14v20l20 10 20-10V14L24 4z" stroke="url(#logoGradient)" stroke-width="2" fill="none"/>
+                        <path d="M24 4v20M24 24v20" stroke="url(#logoGradient)" stroke-width="2"/>
+                        <text x="12" y="28" fill="url(#logoGradient)" font-family="Space Grotesk" font-weight="700" font-size="14">TE</text>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    True Empire
+                    <span>Engineering</span>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="industries.html">Industries</a></li>
+                <li><a href="datacenter.html">Data Center</a></li>
+                <li><a href="underground.html">Underground</a></li>
+                <li><a href="ai-assistant.html" class="ai-nav-btn">AI Assistant</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <div class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-badge">Dallas, TX • Private Utility Provider</div>
+            <h1>Independent Infrastructure for Modern Empires</h1>
+            <p>Your own private utility for communications and data. True Empire Engineering delivers air-gapped data centers, private 5G networks, and FDC-U mobile units that keep your operations running independent of the grid.</p>
+            <div class="btn-group">
+                <a href="industries.html" class="btn btn-primary">Explore Solutions</a>
+                <a href="contact.html" class="btn btn-secondary">Get Quote</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Links Section -->
+    <div class="section">
+        <div class="section-header fade-in">
+            <span class="section-label">Services</span>
+            <h2 class="section-title">Private Utility Infrastructure</h2>
+            <p class="section-subtitle">Independent communications and data infrastructure that operates regardless of external grid conditions.</p>
+        </div>
+        
+        <div class="quick-links">
+            <a href="datacenter.html" class="quick-link-card fade-in">
+                <div class="quick-link-icon">◈</div>
+                <h3>Data Center</h3>
+                <p>Private utility-grade communications and colocation</p>
+            </a>
+            
+            <a href="underground.html" class="quick-link-card fade-in">
+                <div class="quick-link-icon">▣</div>
+                <h3>Underground</h3>
+                <p>FDC-U deployment and heavy equipment</p>
+            </a>
+            
+            <a href="industries.html" class="quick-link-card fade-in">
+                <div class="quick-link-icon">🏭</div>
+                <h3>Industries</h3>
+                <p>Tailored solutions by sector</p>
+            </a>
+            
+            <a href="ai-assistant.html" class="quick-link-card fade-in">
+                <div class="quick-link-icon">🤖</div>
+                <h3>AI Assistant</h3>
+                <p>Instant infrastructure analysis</p>
+            </a>
+        </div>
+    </div>
+
+    <!-- Classic Chevrolet Case Study Section - Enhanced -->
+    <div class="section case-study-section">
+        <div class="case-study-grid">
+            <div class="case-study-logo fade-in">
+                <div class="classic-logo">CLASSIC <span>CHEVROLET</span></div>
+                <div class="classic-subtitle">Featured Case Study</div>
+            </div>
+            
+            <div class="case-study-content fade-in">
+                <span class="section-label">Success Story</span>
+                <h2>Saving <span>$100K+</span> Annually with Grid Independence</h2>
+                
+                <div class="savings-highlight">
+                    <span>💰</span>
+                    <span>Over $100,000 Saved Per Year</span>
+                </div>
+                
+                <p style="color: var(--text-gray); font-size: 1.1rem; margin-bottom: var(--space-md);">
+                    Classic Chevrolet partnered with True Empire to escape the CDK ransomware threat and achieve true operational independence. We delivered a tailored Fortress DMS solution that eliminated recurring cloud costs while providing 24/7 grid-independent operations.
+                </p>
+                
+                <ul class="case-study-features">
+                    <li><strong>Software Freedom:</strong> Choose between the original DMS software foundation or our new AI-updated modern version—no forced upgrades, no vendor lock-in. You own your software destiny.</li>
+                    <li><strong>24/7 Grid Independence:</strong> Operations continue regardless of power outages or internet disruptions. Private 5G network with 72-hour battery backup and on-site generation ensures communications never drop.</li>
+                    <li><strong>Zero Forced Options:</strong> Unlike corporate providers mandating cloud migrations, Classic maintains complete control over their technology roadmap and data storage preferences.</li>
+                    <li><strong>Same-Day Feature Deployment:</strong> New software features installed on-demand within hours, not months—no corporate approval chains required.</li>
+                    <li><strong>Complete Data Sovereignty:</strong> Customer records, financial data, and inventory systems remain physically isolated from external networks.</li>
+                </ul>
+                
+                <div class="no-cloud-badge">
+                    <span>🛡️</span>
+                    <span>No Cloud Threat • Direct Connection • Maximum Security</span>
+                </div>
+                <div class="grid-independence-badge">
+                    <span>⚡</span>
+                    <span>24/7 Grid Independent Operations</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="section cta-section">
+        <div class="section-header fade-in">
+            <span class="section-label">Get Started</span>
+            <h2 class="section-title">Ready for True Independence?</h2>
+            <p class="section-subtitle">Contact our team to discuss your private utility infrastructure needs.</p>
+            <div class="btn-group" style="margin-top: var(--space-md);">
+                <a href="contact.html" class="btn btn-primary">Get a Quote</a>
+                <a href="tel:+15551234567" class="btn btn-secondary">Call (555) 123-4567</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">
+                        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="logoGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#ffd700;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#ff0033;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <path d="M24 4L4 14v20l20 10 20-10V14L24 4z" stroke="url(#logoGradient2)" stroke-width="2" fill="none"/>
+                            <path d="M24 4v20M24 24v20" stroke="url(#logoGradient2)" stroke-width="2"/>
+                            <text x="12" y="28" fill="url(#logoGradient2)" font-family="Space Grotesk" font-weight="700" font-size="14">TE</text>
+                        </svg>
+                    </div>
+                    <div class="logo-text">
+                        True Empire
+                        <span>Engineering</span>
+                    </div>
+                </a>
+                <p>Private utility provider for communications and data infrastructure. Dallas-based engineering solutions that keep your operations independent.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="industries.html">Industries</a></li>
+                    <li><a href="datacenter.html">Data Center</a></li>
+                    <li><a href="underground.html">Underground</a></li>
+                    <li><a href="ai-assistant.html">AI Assistant</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Contact</h4>
+                <ul>
+                    <li>Dallas, TX</li>
+                    <li><a href="mailto:info@trueempire.com">info@trueempire.com</a></li>
+                    <li><a href="tel:+15551234567">(555) 123-4567</a></li>
+                    <li>24/7 Support</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 True Empire Engineering. All Rights Reserved.</p>
+            <div class="social-links">
+                <a href="#">in</a>
+                <a href="#">X</a>
+                <a href="#">@</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll Animation Observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navbar scroll effect
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                nav.style.background = 'rgba(5, 5, 5, 0.95)';
+                nav.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.3)';
+            } else {
+                nav.style.background = 'rgba(5, 5, 5, 0.8)';
+                nav.style.boxShadow = 'none';
+            }
+            
+            lastScroll = currentScroll;
+        });
+    </script>
+</body>
+</html>

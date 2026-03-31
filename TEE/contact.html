@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | True Empire Engineering</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-black: #050505;
+            --secondary-black: #0a0a0a;
+            --tertiary-black: #111111;
+            --empire-red: #ff0033;
+            --empire-gold: #ffd700;
+            --holo-cyan: #00f3ff;
+            --holo-magenta: #ff00ff;
+            --holo-purple: #b026ff;
+            --text-white: #ffffff;
+            --text-gray: #a0a0a0;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 4rem;
+            --space-xl: 8rem;
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--primary-black);
+            color: var(--text-white);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .holo-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.4;
+            background: 
+                radial-gradient(circle at 50% 50%, rgba(255, 0, 51, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 20% 80%, rgba(0, 243, 255, 0.1) 0%, transparent 50%);
+            animation: holoShift 20s ease-in-out infinite;
+        }
+
+        @keyframes holoShift {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(20px, 20px) scale(1.1); }
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: var(--space-sm) 5%;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+        }
+
+        .logo-icon svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+        }
+
+        .logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-white);
+            line-height: 1;
+        }
+
+        .logo-text span {
+            color: var(--empire-gold);
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--space-md);
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--empire-gold), var(--holo-cyan));
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-white);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--empire-gold);
+        }
+
+        .ai-nav-btn {
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.1), rgba(255, 0, 255, 0.1));
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 100px;
+            color: var(--holo-cyan);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            transition: all 0.3s;
+        }
+
+        .ai-nav-btn:hover {
+            background: rgba(0, 243, 255, 0.2);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .hero {
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: calc(var(--space-xl) + 80px) 5% var(--space-xl);
+            background: linear-gradient(135deg, rgba(255, 0, 51, 0.05), rgba(0, 243, 255, 0.05));
+            border-bottom: 1px solid var(--glass-border);
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+            background: linear-gradient(135deg, var(--text-white), var(--empire-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-gray);
+        }
+
+        .section {
+            padding: var(--space-xl) 5%;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-xl);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .info-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            transition: all 0.3s;
+        }
+
+        .info-card:hover {
+            border-color: rgba(255, 215, 0, 0.3);
+            transform: translateX(10px);
+        }
+
+        .info-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--empire-gold);
+            margin-bottom: var(--space-sm);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .info-card p {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            margin-bottom: var(--space-xs);
+        }
+
+        .info-card a {
+            color: var(--text-white);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .info-card a:hover {
+            color: var(--empire-gold);
+        }
+
+        .emergency-card {
+            background: linear-gradient(135deg, rgba(255, 0, 51, 0.1), rgba(255, 0, 51, 0.05));
+            border-color: rgba(255, 0, 51, 0.3);
+        }
+
+        .emergency-card h3 {
+            color: var(--empire-red);
+        }
+
+        .emergency-card:hover {
+            border-color: var(--empire-red);
+        }
+
+        /* Form */
+        .form-container {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: var(--space-md);
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: var(--space-xs);
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: var(--space-sm);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-sm);
+            color: var(--text-white);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--empire-gold);
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-md);
+        }
+
+        /* File Upload Styling */
+        .file-upload-area {
+            border: 2px dashed var(--glass-border);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: var(--space-md);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .file-upload-area:hover {
+            border-color: var(--empire-gold);
+            background: rgba(255, 215, 0, 0.05);
+        }
+
+        .file-upload-area.dragover {
+            border-color: var(--holo-cyan);
+            background: rgba(0, 243, 255, 0.05);
+        }
+
+        .file-upload-icon {
+            font-size: 2rem;
+            margin-bottom: var(--space-xs);
+            opacity: 0.7;
+        }
+
+        .file-upload-text {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            margin-bottom: var(--space-xs);
+        }
+
+        .file-upload-hint {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-xs);
+            margin-top: var(--space-sm);
+        }
+
+        .file-item {
+            background: rgba(0, 243, 255, 0.1);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 100px;
+            padding: var(--space-xs) var(--space-sm);
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            font-size: 0.85rem;
+            color: var(--holo-cyan);
+        }
+
+        .file-item button {
+            background: none;
+            border: none;
+            color: var(--text-gray);
+            cursor: pointer;
+            font-size: 1.1rem;
+            line-height: 1;
+            padding: 0;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn {
+            width: 100%;
+            padding: var(--space-sm);
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            border-radius: var(--radius-sm);
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            text-align: center;
+            display: block;
+            background: linear-gradient(135deg, var(--empire-gold), #ffaa00);
+            color: #000;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Map Section */
+        .map-section {
+            background: var(--secondary-black);
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .map-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            height: 400px;
+            background: var(--tertiary-black);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-gray);
+            font-size: 1.25rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, transparent 48%, rgba(255, 215, 0, 0.05) 50%, transparent 52%),
+                linear-gradient(-45deg, transparent 48%, rgba(0, 243, 255, 0.05) 50%, transparent 52%);
+            background-size: 20px 20px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-black);
+            border-top: 1px solid var(--glass-border);
+            padding: var(--space-xl) 5% var(--space-lg);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: var(--space-xl);
+            margin-bottom: var(--space-xl);
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: var(--space-md);
+        }
+
+        .footer-brand p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .footer-links h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--text-white);
+            margin-bottom: var(--space-md);
+            font-size: 1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: var(--space-xs);
+        }
+
+        .footer-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--empire-gold);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: var(--space-lg);
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+
+        .footer-bottom p {
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            border-color: var(--empire-gold);
+            color: var(--empire-gold);
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 968px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="holo-bg"></div>
+
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#ffd700;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#ff0033;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M24 4L4 14v20l20 10 20-10V14L24 4z" stroke="url(#logoGradient)" stroke-width="2" fill="none"/>
+                        <path d="M24 4v20M24 24v20" stroke="url(#logoGradient)" stroke-width="2"/>
+                        <text x="12" y="28" fill="url(#logoGradient)" font-family="Space Grotesk" font-weight="700" font-size="14">TE</text>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    True Empire
+                    <span>Engineering</span>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="industries.html">Industries</a></li>
+                <li><a href="datacenter.html">Data Center</a></li>
+                <li><a href="underground.html">Underground</a></li>
+                <li><a href="ai-assistant.html" class="ai-nav-btn">✦ AI Assistant</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Contact Us</h1>
+            <p>Ready to build your independent infrastructure? Get in touch for grid audits and custom quotes.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="contact-grid">
+            <div class="contact-info fade-in">
+                <div class="info-card">
+                    <h3>📍 Address</h3>
+                    <p>True Empire Engineering HQ</p>
+                    <p>2800 Commerce Street<br>Dallas, TX 75226</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3>📞 Phone</h3>
+                    <p><a href="tel:+15551234567">(555) 123-4567</a></p>
+                    <p style="font-size: 0.9rem; margin-top: var(--space-xs);">Mon-Fri 8am-6pm CST</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3>✉️ Email</h3>
+                    <p><a href="mailto:info@trueempire.com">info@trueempire.com</a></p>
+                    <p><a href="mailto:sales@trueempire.com">sales@trueempire.com</a></p>
+                </div>
+                
+                <div class="info-card emergency-card">
+                    <h3>🚨 24/7 Emergency</h3>
+                    <p><a href="tel:+15559998888">(555) 999-8888</a></p>
+                    <p style="font-size: 0.9rem; margin-top: var(--space-xs);">For utility breaks and infrastructure emergencies</p>
+                </div>
+
+                <div class="info-card" style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05)); border-color: rgba(255, 215, 0, 0.3);">
+                    <h3 style="color: var(--empire-gold);">⚡ Grid Audit</h3>
+                    <p>Comprehensive $2,500 fiber proximity analysis</p>
+                    <p style="font-size: 0.85rem; margin-top: var(--space-xs); color: var(--text-gray);">Includes GIS mapping, security assessment, compliance gap analysis, 5-year TCO projection, and 90-day node reservation</p>
+                </div>
+            </div>
+
+            <div class="form-container fade-in">
+                <h2 style="font-family: 'Space Grotesk', sans-serif; margin-bottom: var(--space-md);">Request a Quote</h2>
+                <form id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="industry">Industry</label>
+                        <select id="industry" name="industry" required>
+                            <option value="">Select your industry...</option>
+                            <option value="automotive">Automotive Dealership</option>
+                            <option value="logistics">Logistics & Warehousing</option>
+                            <option value="manufacturing">Manufacturing</option>
+                            <option value="healthcare">Healthcare & Clinics</option>
+                            <option value="construction">Construction & Storm</option>
+                            <option value="other">Other / Custom</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="service">Service Type</label>
+                        <select id="service" name="service" required>
+                            <option value="">Select a service...</option>
+                            <option value="audit">Grid Audit ($2,500) - Comprehensive Assessment</option>
+                            <option value="5g">Private 5G Network</option>
+                            <option value="fiber">Dark Fiber</option>
+                            <option value="colo">Colocation</option>
+                            <option value="cloud">Private Cloud</option>
+                            <option value="custom">Custom Development</option>
+                            <option value="emergency">Emergency Response</option>
+                        </select>
+                    </div>
+
+                    <!-- File Upload Section -->
+                    <div class="form-group">
+                        <label>Supporting Documents (Optional)</label>
+                        <div class="file-upload-area" id="fileUploadArea" onclick="document.getElementById('fileUpload').click()">
+                            <div class="file-upload-icon">📁</div>
+                            <div class="file-upload-text">Drop files here or click to upload</div>
+                            <div class="file-upload-hint">Architecture diagrams, compliance requirements, current infrastructure docs (PDF, DWG, PNG, JPG)</div>
+                            <input type="file" id="fileUpload" class="file-input" multiple accept=".pdf,.dwg,.vsd,.png,.jpg,.jpeg,.txt,.doc,.docx" onchange="handleFiles(event)">
+                        </div>
+                        <div class="file-list" id="fileList"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Project Details</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Tell us about your project, timeline, independence requirements, or current infrastructure challenges..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn">Send Request</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="section map-section">
+        <div class="section-header fade-in" style="text-align: center; margin-bottom: var(--space-lg);">
+            <span class="section-label" style="font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.2em; color: var(--empire-gold); display: block; margin-bottom: var(--space-sm);">Location</span>
+            <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 2rem;">Dallas Headquarters</h2>
+            <p style="color: var(--text-gray); margin-top: var(--space-sm);">Located in the historic Deep Ellum district - Home of the 21-Mile Fiber Ring</p>
+        </div>
+        <div class="map-container fade-in">
+            <div style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: var(--space-sm);">📍</div>
+                <p>2800 Commerce Street, Dallas, TX 75226</p>
+                <p style="font-size: 0.9rem; margin-top: var(--space-xs);">Grid Audit Available Within 50-Mile Radius</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">
+                        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="logoGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#ffd700;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#ff0033;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <path d="M24 4L4 14v20l20 10 20-10V14L24 4z" stroke="url(#logoGradient2)" stroke-width="2" fill="none"/>
+                            <path d="M24 4v20M24 24v20" stroke="url(#logoGradient2)" stroke-width="2"/>
+                            <text x="12" y="28" fill="url(#logoGradient2)" font-family="Space Grotesk" font-weight="700" font-size="14">TE</text>
+                        </svg>
+                    </div>
+                    <div class="logo-text">
+                        True Empire
+                        <span>Engineering</span>
+                    </div>
+                </a>
+                <p>Building independent infrastructure for modern empires. Dallas-based, globally capable.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="industries.html">Industries</a></li>
+                    <li><a href="datacenter.html">Data Center</a></li>
+                    <li><a href="underground.html">Underground</a></li>
+                    <li><a href="ai-assistant.html">AI Assistant</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy</a></li>
+                    <li><a href="#">Terms</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 True Empire Engineering. All Rights Reserved.</p>
+            <div class="social-links">
+                <a href="#">in</a>
+                <a href="#">X</a>
+                <a href="#">@</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // File upload handling
+        let selectedFiles = [];
+        const uploadArea = document.getElementById('fileUploadArea');
+        const fileInput = document.getElementById('fileUpload');
+        const fileList = document.getElementById('fileList');
+
+        function handleFiles(event) {
+            const files = Array.from(event.target.files);
+            addFiles(files);
+        }
+
+        function addFiles(files) {
+            files.forEach(file => {
+                if (!selectedFiles.find(f => f.name === file.name)) {
+                    selectedFiles.push(file);
+                    const item = document.createElement('div');
+                    item.className = 'file-item';
+                    item.innerHTML = `
+                        <span>📄 ${file.name}</span>
+                        <button type="button" onclick="removeFile('${file.name}')">×</button>
+                    `;
+                    fileList.appendChild(item);
+                }
+            });
+        }
+
+        function removeFile(filename) {
+            selectedFiles = selectedFiles.filter(f => f.name !== filename);
+            const items = fileList.querySelectorAll('.file-item');
+            items.forEach(item => {
+                if (item.textContent.includes(filename)) {
+                    item.remove();
+                }
+            });
+        }
+
+        // Drag and drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = Array.from(e.dataTransfer.files);
+            addFiles(files);
+        });
+
+        // Form handling
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const fileNames = selectedFiles.map(f => f.name).join(', ');
+            const message = document.getElementById('message').value;
+            const fullMessage = fileNames ? `${message}\n\n[Attached files: ${fileNames}]` : message;
+            
+            alert('Thank you for your inquiry. Our engineering team will review your documents and contact you within 24 hours.');
+            this.reset();
+            fileList.innerHTML = '';
+            selectedFiles = [];
+        });
+
+        // Scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Underground & Heavy Equipment | True Empire Engineering</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-black: #050505;
+            --secondary-black: #0a0a0a;
+            --tertiary-black: #111111;
+            --empire-red: #ff0033;
+            --empire-gold: #ffd700;
+            --holo-cyan: #00f3ff;
+            --holo-magenta: #ff00ff;
+            --holo-purple: #b026ff;
+            --text-white: #ffffff;
+            --text-gray: #a0a0a0;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 4rem;
+            --space-xl: 8rem;
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--primary-black);
+            color: var(--text-white);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .holo-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.4;
+            background: 
+                radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 20% 80%, rgba(255, 0, 51, 0.1) 0%, transparent 50%);
+            animation: holoShift 20s ease-in-out infinite;
+        }
+
+        @keyframes holoShift {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-20px, 20px) scale(1.05); }
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: var(--space-sm) 5%;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+        }
+
+        .logo-icon svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+        }
+
+        .logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-white);
+            line-height: 1;
+        }
+
+        .logo-text span {
+            color: var(--empire-gold);
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--space-md);
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--empire-gold), var(--holo-cyan));
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-white);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--empire-gold);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .hero {
+            min-height: 60vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: calc(var(--space-xl) + 80px) 5% var(--space-xl);
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.05), rgba(255, 0, 51, 0.05));
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: var(--space-xs) var(--space-md);
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 100px;
+            color: var(--empire-gold);
+            font-size: 0.85rem;
+            margin-bottom: var(--space-md);
+            font-weight: 600;
+        }
+
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+            background: linear-gradient(135deg, var(--text-white), var(--empire-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .section {
+            padding: var(--space-xl) 5%;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto var(--space-lg);
+        }
+
+        .section-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--empire-gold);
+            margin-bottom: var(--space-sm);
+            display: block;
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+        }
+
+        /* FDC-U Section - Priority */
+        .fdcu-priority-section {
+            background: linear-gradient(135deg, rgba(255, 0, 51, 0.1), rgba(255, 215, 0, 0.1));
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+            padding: var(--space-xl) 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fdcu-priority-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 0, 51, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .fdcu-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-xl);
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .fdcu-content h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: var(--space-md);
+        }
+
+        .fdcu-content h2 span {
+            color: var(--empire-red);
+        }
+
+        .fdcu-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: var(--space-xs) var(--space-sm);
+            background: rgba(255, 0, 51, 0.2);
+            border: 1px solid rgba(255, 0, 51, 0.4);
+            border-radius: 100px;
+            font-size: 0.85rem;
+            color: var(--empire-red);
+            margin-bottom: var(--space-md);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .fdcu-content > p {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            margin-bottom: var(--space-md);
+            line-height: 1.7;
+        }
+
+        .fdcu-specs {
+            list-style: none;
+            margin: var(--space-md) 0;
+        }
+
+        .fdcu-specs li {
+            padding: var(--space-sm) 0;
+            padding-left: var(--space-lg);
+            position: relative;
+            color: var(--text-gray);
+            font-size: 1rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .fdcu-specs li::before {
+            content: '⚡';
+            position: absolute;
+            left: 0;
+            color: var(--empire-gold);
+        }
+
+        .fdcu-visual {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .fdcu-visual::before {
+            content: '📡';
+            font-size: 10rem;
+            opacity: 0.3;
+            animation: pulse 3s infinite;
+        }
+
+        .fdcu-overlay {
+            position: absolute;
+            bottom: var(--space-md);
+            left: var(--space-md);
+            right: var(--space-md);
+            background: rgba(5, 5, 5, 0.95);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            backdrop-filter: blur(10px);
+        }
+
+        .fdcu-metric {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-xs);
+            font-size: 0.9rem;
+        }
+
+        .fdcu-metric span:first-child {
+            color: var(--text-gray);
+        }
+
+        .fdcu-metric span:last-child {
+            color: var(--empire-gold);
+            font-weight: 600;
+        }
+
+        /* Equipment Grid */
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-md);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .equipment-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: all 0.4s;
+            position: relative;
+        }
+
+        .equipment-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 215, 0, 0.3);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .equipment-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .equipment-content {
+            padding: var(--space-lg);
+        }
+
+        .equipment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: var(--space-sm);
+        }
+
+        .equipment-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: var(--space-xs);
+        }
+
+        .equipment-specs {
+            color: var(--empire-gold);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .availability {
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .available {
+            background: rgba(39, 201, 63, 0.2);
+            color: #27c93f;
+            border: 1px solid rgba(39, 201, 63, 0.3);
+        }
+
+        .limited {
+            background: rgba(255, 189, 46, 0.2);
+            color: #ffbd2e;
+            border: 1px solid rgba(255, 189, 46, 0.3);
+        }
+
+        .price-row {
+            display: flex;
+            gap: var(--space-md);
+            margin: var(--space-md) 0;
+            padding: var(--space-sm) 0;
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .price-item {
+            flex: 1;
+        }
+
+        .price-label {
+            font-size: 0.75rem;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 4px;
+        }
+
+        .price-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-white);
+        }
+
+        .equipment-features {
+            list-style: none;
+            margin-bottom: var(--space-md);
+        }
+
+        .equipment-features li {
+            padding: var(--space-xs) 0;
+            padding-left: var(--space-md);
+            position: relative;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        .equipment-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--empire-gold);
+            font-weight: bold;
+        }
+
+        .btn {
+            width: 100%;
+            padding: var(--space-sm);
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            border-radius: var(--radius-sm);
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            text-align: center;
+            display: block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--empire-gold), #ffaa00);
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Services Section */
+        .services-section {
+            background: var(--secondary-black);
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-md);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-item {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            transition: all 0.3s;
+        }
+
+        .service-item:hover {
+            border-color: var(--empire-gold);
+            transform: translateY(-5px);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--empire-gold), var(--holo-cyan));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: var(--space-md);
+        }
+
+        .service-item h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        .service-item p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            margin-bottom: var(--space-md);
+        }
+
+        .service-price {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--empire-gold);
+        }
+
+        .service-price span {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            font-weight: 400;
+        }
+
+        /* CTA */
+        .cta-section {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 0, 51, 0.1));
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-black);
+            border-top: 1px solid var(--glass-border);
+            padding: var(--space-xl) 5% var(--space-lg);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: var(--space-xl);
+            margin-bottom: var(--space-xl);
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: var(--space-md);
+        }
+
+        .footer-brand p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .footer-links h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--text-white);
+            margin-bottom: var(--space-md);
+            font-size: 1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: var(--space-xs);
+        }
+
+        .footer-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--empire-gold);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: var(--space-lg);
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+
+        .footer-bottom p {
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            border-color: var(--empire-gold);
+            color: var(--empire-gold);
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 968px) {
+            .equipment-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .fdcu-container {
+                grid-template-columns: 1fr;
+            }
+
+            .fdcu-visual {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .price-row {
+                flex-direction: column;
+                gap: var(--space-sm);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="holo-bg"></div>
+
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#ffd700;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#ff0033;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M24 4L4 14v20l20 10 20-10V14L24 4z" stroke="url(#logoGradient)" stroke-width="2" fill="none"/>
+                        <path d="M24 4v20M24 24v20" stroke="url(#logoGradient)" stroke-width="2"/>
+                        <text x="12" y="28" fill="url(#logoGradient)" font-family="Space Grotesk" font-weight="700" font-size="14">TE</text>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    True Empire
+                    <span>Engineering</span>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="industries.html">Industries</a></li>
+                <li><a href="datacenter.html">Data Center</a></li>
+                <li><a href="underground.html" class="active">Underground</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">Physical Infrastructure</div>
+            <h1>Underground & Heavy Equipment</h1>
+            <p>Precision excavation, heavy machinery rental, and underground utility services. Military-grade precision for Dallas infrastructure projects and independent fiber deployment.</p>
+        </div>
+    </div>
+
+    <!-- FDC-U Priority Section -->
+    <div class="fdcu-priority-section" id="fdcu">
+        <div class="fdcu-container">
+            <div class="fdcu-content fade-in">
+                <div class="fdcu-badge">⚡ Priority Deployment</div>
+                <h2>FDC-U <span>Fast Deployable Communications Unit</span></h2>
+                <p>The new world order for instant connectivity. A retrofitted 85ft boom lift equipped with high-gain 5G antenna arrays and satellite uplink. Deploys in 30 minutes to any jobsite, disaster zone, or remote location where traditional infrastructure fails.</p>
+                
+                <ul class="fdcu-specs">
+                    <li><strong>85ft Hydraulic Boom</strong> — Elevates antennas above obstacles for maximum line-of-sight</li>
+                    <li><strong>5G + Satellite Hybrid</strong> — Multi-carrier aggregation with Starlink backup</li>
+                    <li><strong>30-Minute Deployment</strong> — Operational before traditional crews finish setup</li>
+                    <li><strong>Storm Disaster Ready</strong> — IP67 rated, 72-hour battery, CAT power generation</li>
+                    <li><strong>10km Coverage Radius</strong> — Supports 1,000+ devices simultaneously</li>
+                    <li><strong>Independent Network</strong> — No ISP dependency, fully autonomous operation</li>
+                </ul>
+
+                <div style="margin-top: var(--space-md); display: flex; gap: var(--space-sm); flex-wrap: wrap;">
+                    <a href="contact.html" class="btn btn-primary" style="width: auto; padding: var(--space-sm) var(--space-lg);">Deploy FDC-U Now</a>
+                    <span style="color: var(--text-gray); align-self: center;">Starting at $850/day • Emergency dispatch available</span>
+                </div>
+            </div>
+            <div class="fdcu-visual fade-in">
+                <div style="text-align: center; z-index: 1;">
+                    <div style="font-size: 4rem; margin-bottom: var(--space-sm);">🚛📡</div>
+                    <p style="font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; color: var(--empire-gold);">FDC-U Mobile Command</p>
+                    <p style="color: var(--text-gray);">85ft Boom • 5G Tower • Anywhere</p>
+                </div>
+                <div class="fdcu-overlay">
+                    <div class="fdcu-metric">
+                        <span>Deployment Time:</span>
+                        <span>30 minutes</span>
+                    </div>
+                    <div class="fdcu-metric">
+                        <span>Coverage:</span>
+                        <span>10km radius</span>
+                    </div>
+                    <div class="fdcu-metric">
+                        <span>Devices:</span>
+                        <span>1,000+ concurrent</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-header fade-in">
+            <span class="section-label">Equipment Rental</span>
+            <h2 class="section-title">Heavy Machinery Fleet</h2>
+            <p style="color: var(--text-gray);">Daily, weekly, and monthly rates available. All equipment includes licensed operator option for fiber trenching and directional boring.</p>
+        </div>
+
+        <div class="equipment-grid">
+            <div class="equipment-card fade-in">
+                <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop" alt="CAT 320 Excavator" class="equipment-image">
+                <div class="equipment-content">
+                    <div class="equipment-header">
+                        <div>
+                            <h3 class="equipment-title">CAT 320 Excavator</h3>
+                            <div class="equipment-specs">20-30 Tons • 6,000 lbs Lift</div>
+                        </div>
+                        <span class="availability available">Available</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price-item">
+                            <div class="price-label">Daily</div>
+                            <div class="price-value">$450</div>
+                        </div>
+                        <div class="price-item">
+                            <div class="price-label">Weekly</div>
+                            <div class="price-value">$2,800</div>
+                        </div>
+                        <div class="price-item">
+                            <div class="price-label">Monthly</div>
+                            <div class="price-value">$9,500</div>
+                        </div>
+                    </div>
+                    <ul class="equipment-features">
+                        <li>GPS Grade Control Ready</li>
+                        <li>360° Camera System</li>
+                        <li>Enclosed Cab with AC</li>
+                        <li>Quick Coupler Compatible</li>
+                    </ul>
+                    <a href="contact.html" class="btn btn-primary">Reserve Now</a>
+                </div>
+            </div>
+
+            <div class="equipment-card fade-in">
+                <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=2070&auto=format&fit=crop" alt="CAT 299D3 Skid Steer" class="equipment-image">
+                <div class="equipment-content">
+                    <div class="equipment-header">
+                        <div>
+                            <h3 class="equipment-title">CAT 299D3 Skid Steer</h3>
+                            <div class="equipment-specs">Compact • 3,000 lbs ROC</div>
+                        </div>
+                        <span class="availability available">Available</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price-item">
+                            <div class="price-label">Daily</div>
+                            <div class="price-value">$280</div>
+                        </div>
+                        <div class="price-item">
+                            <div class="price-label">Weekly</div>
+                            <div class="price-value">$1,750</div>
+                        </div>
+                        <div class="price-item">
+                            <div class="price-label">Monthly</div>
+                            <div class="price-value">$5,900</div>
+                        </div>
+                    </div>
+                    <ul class="equipment-features">
+                        <li>High Flow Hydraulics</li>
+                        <li>All-Wheel Drive</li>
+                        <li>Multiple Attachment Options</li>
+                        <li>Joystick Controls</li>
+                    </ul>
+                    <a href="contact.html" class="btn btn-primary">Reserve Now</a>
+                </div>
+            </div>
+
+            <div class="equipment-card fade-in">
+                <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2070&auto=format&fit=crop" alt="Vermeer Trencher" class="equipment-image">
+                <div class="equipment-content">
+                    <div class="equipment-header">
+                        <div>
+                            <h3 class="equipment-title">Vermeer RTX1250</h3>
+                            <div class="equipment-specs">Trencher • 48" Depth</div>
+                        </div>
+                        <span class="availability limited">Limited</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price-item">
+                            <div class="price-label">Daily</div>
+                            <div class="price-value">$320</div>
+                        </div>
+                        <div class="price-item">
+                            <div class="price-label">Weekly</div>
+                            <div class="price-value">$2,000</div>
+                        </div>
+                        <div class="price-item">
+                            <div class="price-label">Monthly</div>
+                            <div class="price-value">$6,800</div>
+                        </div>
+                    </div>
+                    <ul class="equipment-features">
+                        <li>Rock Wheel Attachment</li>
+                        <li>Backfill Blade Included</li>
+                        <li>Remote Control Option</li>
+                        <li>GPS Mapping Compatible</li>
+                    </ul>
+                    <a href="contact.html" class="btn btn-primary">Reserve Now</a>
+                </div>
+            </div>
+
+            <div class="equipment-card fade-in">
+                <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop" alt="Bucket Truck" class="equipment-image">
+                <div class="equipment-content">
+                    <div class="equipment-header">
+                        <div>
+                            <h3 class="equipment-title">Altec Bucket Truck</h3>
+                            <div class="equipment-specs">60' Reach • Insulated</div>
+                        </div>
+                        <span class="availability available">Available</span>
+                    </div>
+                    <div class="price-row">
+                        <div class="price-item">
+                            <div class="price-label">Daily</div>
+                            <div class="price-value">$380</div>
+                        </div>
+                        <div class="price-item">
+                            <div class="price-label">Weekly</div>
+                            <div class="price-value">$2,200</div>
+                        </div>
+                        <div class="price-item">
+                            <div class="price-label">Monthly</div>
+                            <div class="price-value">$7,500</div>
+                        </div>
+                    </div>
+                    <ul class="equipment-features">
+                        <li>Insulated Boom (CAT C)</li>
+                        <li>Material Handling Jib</li>
+                        <li>Outrigger Pads Included</li>
+                        <li>DOT Certified Operator</li>
+                    </ul>
+                    <a href="contact.html" class="btn btn-primary">Reserve Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section services-section">
+        <div class="section-header fade-in">
+            <span class="section-label">Services</span>
+            <h2 class="section-title">Underground Solutions</h2>
+            <p style="color: var(--text-gray);">Professional crews available for turn-key installation and independent fiber deployment.</p>
+        </div>
+
+        <div class="services-grid">
+            <div class="service-item fade-in">
+                <div class="service-icon">▣</div>
+                <h3>Directional Boring</h3>
+                <p>Trenchless technology for installing utilities under existing structures with minimal surface disruption. Essential for fiber optic deployment.</p>
+                <div class="service-price">$150 <span>per foot</span></div>
+            </div>
+
+            <div class="service-item fade-in">
+                <div class="service-icon">▤</div>
+                <h3>Site Preparation</h3>
+                <p>Complete land clearing, grading, and preparation for commercial construction projects and data center builds.</p>
+                <div class="service-price">$3,500 <span>per day (crew)</span></div>
+            </div>
+
+            <div class="service-item fade-in">
+                <div class="service-icon">▥</div>
+                <h3>Utility Locating</h3>
+                <p>GPR (Ground Penetrating Radar) and electromagnetic locating services for safe excavation and fiber pathway mapping.</p>
+                <div class="service-price">$125 <span>per hour</span></div>
+            </div>
+
+            <div class="service-item fade-in">
+                <div class="service-icon">▦</div>
+                <h3>Emergency Response</h3>
+                <p>24/7 emergency excavation and repair services for utility breaks and infrastructure failures.</p>
+                <div class="service-price">$450 <span>per hour</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section cta-section">
+        <div class="section-header fade-in">
+            <span class="section-label">Projects</span>
+            <h2 class="section-title">Need a Custom Quote?</h2>
+            <p class="section-subtitle">We offer volume discounts for long-term rentals and multi-site construction projects. Bundle with our Data Center services for complete independent infrastructure.</p>
+            <div style="margin-top: var(--space-md); display: flex; gap: var(--space-sm); justify-content: center; flex-wrap: wrap;">
+                <a href="contact.html" class="btn btn-primary" style="width: auto; padding: var(--space-sm) var(--space-lg);">Request Quote</a>
+                <a href="tel:+15551234567" class="btn btn-secondary" style="width: auto; padding: var(--space-sm) var(--space-lg); background: transparent; border: 1px solid var(--glass-border); color: var(--text-white);">Call (555) 123-4567</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">
+                        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="logoGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#ffd700;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#ff0033;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <path d="M24 4L4 14v20l20 10 20-10V14L24 4z" stroke="url(#logoGradient2)" stroke-width="2" fill="none"/>
+                            <path d="M24 4v20M24 24v20" stroke="url(#logoGradient2)" stroke-width="2"/>
+                            <text x="12" y="28" fill="url(#logoGradient2)" font-family="Space Grotesk" font-weight="700" font-size="14">TE</text>
+                        </svg>
+                    </div>
+                    <div class="logo-text">
+                        True Empire
+                        <span>Engineering</span>
+                    </div>
+                </a>
+                <p>Heavy equipment and underground infrastructure solutions for Texas construction projects and independent fiber deployment.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Equipment</h4>
+                <ul>
+                    <li><a href="#">Excavators</a></li>
+                    <li><a href="#">Skid Steers</a></li>
+                    <li><a href="#">Trenchers</a></li>
+                    <li><a href="#">FDC-U Boom Units</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="#">Directional Boring</a></li>
+                    <li><a href="#">Site Prep</a></li>
+                    <li><a href="#">Utility Locating</a></li>
+                    <li><a href="#">Emergency</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Contact</h4>
+                <ul>
+                    <li>Dallas, TX</li>
+                    <li>info@trueempire.com</li>
+                    <li>(555) 123-4567</li>
+                    <li>24/7 Dispatch</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 True Empire Engineering. All Rights Reserved.</p>
+            <div class="social-links">
+                <a href="#">in</a>
+                <a href="#">X</a>
+                <a href="#">@</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
